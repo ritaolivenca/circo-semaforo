@@ -1,6 +1,3 @@
-// Coding Train / Daniel Shiffman
-// adapted w/ml5 poseNET example to interactive text representation
-
 const { VerletPhysics2D, VerletParticle2D, VerletSpring2D } = toxi.physics2d;
 const { GravityBehavior } = toxi.physics2d.behaviors;
 const { Vec2D, Rect } = toxi.geom;
@@ -20,6 +17,9 @@ let skeleton;
 
 let mensagem = " ANDRÉ";
 let font;
+
+let vw;
+let vh;
 
 function preload() {
   font = loadFont("GoshaSans-Bold.otf");
@@ -47,15 +47,12 @@ function setup() {
   for (let j = 0; j < 4; j++) {
     pointsType.push(new Particle((j * width) / 4, height / 2));
   }
-  console.log(mensagem.length);
-  //pointsType.push(new Particle(1000, 400));
 
   for (let i = 0; i < particles.length; i++) {
     for (let j = i + 1; j < particles.length; j++) {
       if (i !== j) {
         let a = particles[i];
         let b = particles[j];
-        // let b = particles[(i + 1) % particles.length];
         springs.push(new Spring(a, b, 0.001));
       }
     }
@@ -72,6 +69,9 @@ function setup() {
   springs.push(new Spring(particles[1], particles[3], 0.01));
 
   video = createCapture(VIDEO);
+  vw = width;
+  vh = width * (1080 / 1920);
+  video.size(vw, vh);
   video.hide();
   poseNet = ml5.poseNet(video, modelLoaded);
   poseNet.on("pose", gotPoses);
@@ -81,7 +81,6 @@ function setup() {
 }
 
 function gotPoses(poses) {
-  //console.log(poses);
   if (poses.length > 0) {
     pose = poses[0].pose;
   }
@@ -93,11 +92,9 @@ function modelLoaded() {
 
 function draw() {
   background(255);
+  image(video, 0, 0, vw, vh);
 
-  //image(video, 0, 0, width, (1080*width)/1920);
   if (pose) {
-    // We can call both functions to draw all keypoints and the skeletons
-
     physics.update();
 
     noStroke();
@@ -105,7 +102,6 @@ function draw() {
 
     noFill();
     if (showSprings) noFill();
-    //fill(45, 197, 244, 100);
     strokeWeight(3);
     beginShape();
     for (let particle of particles) {
@@ -121,25 +117,40 @@ function draw() {
       x2 = pointsType[1].x,
       x3 = pointsType[2].x,
       x4 = pointsType[3].x;
-    //x5 = pointsType[4].x;
+
     let y1 = pointsType[0].y,
       y2 = pointsType[1].y,
       y3 = pointsType[2].y,
       y4 = pointsType[3].y;
-    //y5 = pointsType[4].y;
-    //bezier(x1,y1,x2,y2,x3,y3,x4,y4,);
+
     textSize(100);
-    for (let i = 0; i <= mensagem.length; i++) {
-      let steps = i / mensagem.length;
+    let spacing = 10;
+    let totalTextWidth = 0;
+
+    for (let i = 0; i < mensagem.length; i++) {
+      let currentChar = mensagem.charAt(i);
+      let charWidth = textWidth(currentChar);
+      totalTextWidth += charWidth + spacing;
+    }
+
+    let startX = (width - totalTextWidth) / 2;
+
+    for (let i = 0; i < mensagem.length; i++) {
+      let steps = i / (mensagem.length - 1);
       let pointX = bezierPoint(x1, x2, x3, x4, steps);
       let pointY = bezierPoint(y1, y2, y3, y4, steps);
+
       if (steps > 0) {
-        let currentChar = mensagem.charAt(i - 1);
+        let prevPointX = bezierPoint(x1, x2, x3, x4, steps - 1);
+        let prevPointY = bezierPoint(y1, y2, y3, y4, steps - 1);
+
+        let currentChar = mensagem.charAt(i);
         stroke(0);
         line(pointX, pointY, prevPointX, prevPointY);
+
         let LE = createVector(pointX, pointY);
         let LR = createVector(prevPointX, prevPointY);
-        let normal = createVector(width/2, 0);
+        let normal = createVector(width / 2, 0);
 
         let dir = LE.sub(LR);
         dir.normalize();
@@ -147,7 +158,7 @@ function draw() {
         let angle = angleBetween(normal, dir);
         fill(0);
         noStroke();
-        
+
         push();
         translate(pointX, pointY);
         rotate(angle);
@@ -157,11 +168,8 @@ function draw() {
 
       fill(250);
       noStroke();
-      prevPointX = pointX;
-      prevPointY = pointY;
 
-      // pop();
-      //circle(pointX, pointY, 20);
+      startX += textWidth(mensagem.charAt(i)) + spacing;
     }
 
     endShape();

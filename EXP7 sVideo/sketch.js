@@ -21,6 +21,8 @@ let mensagem = " CATARINA ";
 let mensagem2 = " entrecampos "; //writeTextone//writeTextone
 let font;
 
+let vw;
+let vh;
 
 function preload() {
   font = loadFont("GoshaSans-Bold.otf");
@@ -49,7 +51,7 @@ function setup() {
     pointsType.push(new Particle((j * width) / 2, height / 3));
   }
   for (let k = 0; k < 4; k++) {
-    pointsType2.push(new Particle((k * width) / 2, 2*height / 3));
+    pointsType2.push(new Particle((k * width) / 2, (2 * height) / 3));
   }
 
   //console.log(mensagem.length);
@@ -81,6 +83,9 @@ function setup() {
   springs.push(new Spring(particles[1], particles[3], 0.01));
 
   video = createCapture(VIDEO);
+  vw = width;
+  vh = width * (1080 / 1920);
+  video.size(vw, vh);
   video.hide();
   poseNet = ml5.poseNet(video, modelLoaded);
   poseNet.on("pose", gotPoses);
@@ -103,7 +108,7 @@ function modelLoaded() {
 function draw() {
   background(255);
 
-  //image(video, 0, 0, width, (1080*width)/1920);
+  //image(video, 0, 0, vw, vh);
   //blendMode(MULTIPLY);
   //fill(250,0,0);
   //rect(0, 0, width, (1080*width)/1920);
@@ -139,7 +144,7 @@ function draw() {
       y2 = pointsType[1].y,
       y3 = pointsType[2].y,
       y4 = pointsType[3].y;
-    
+
     let x5 = pointsType2[0].x,
       x6 = pointsType2[1].x,
       x7 = pointsType2[2].x,
@@ -151,7 +156,6 @@ function draw() {
       y8 = pointsType2[3].y;
     //y5 = pointsType[4].y;
     //bezier(x1,y1,x2,y2,x3,y3,x4,y4,);
-
 
     //mensagem 1
     textSize(100);
@@ -165,7 +169,7 @@ function draw() {
         line(pointX, pointY, prevPointX, prevPointY);
         let LE = createVector(pointX, pointY);
         let LR = createVector(prevPointX, prevPointY);
-        let normal = createVector(width/2, 0);
+        let normal = createVector(width / 2, 0);
 
         let dir = LE.sub(LR);
         dir.normalize();
@@ -173,7 +177,7 @@ function draw() {
         let angle = angleBetween(normal, dir);
         fill(0);
         noStroke();
-        
+
         push();
         translate(pointX, pointY);
         rotate(angle);
@@ -192,7 +196,6 @@ function draw() {
 
     endShape();
 
-
     //mensagem 2
     textSize(60);
     for (let i = 0; i <= mensagem2.length; i++) {
@@ -205,7 +208,7 @@ function draw() {
         line(pointX2, pointY2, prevPointX2, prevPointY2);
         let LE2 = createVector(pointX2, pointY2);
         let LR2 = createVector(prevPointX2, prevPointY2);
-        let normal = createVector(width/2, 0);
+        let normal = createVector(width / 2, 0);
 
         let dir = LE2.sub(LR2);
         dir.normalize();
@@ -213,7 +216,7 @@ function draw() {
         let angle2 = angleBetween(normal, dir);
         fill(30);
         noStroke();
-        
+
         push();
         translate(pointX2, pointY2);
         rotate(angle2);
@@ -240,19 +243,19 @@ function draw() {
 
     pointsType[0].lock();
     pointsType[0].x = pose.rightWrist.x;
-    pointsType[0].y = pose.rightWrist.y+height/16;
+    pointsType[0].y = pose.rightWrist.y + height / 16;
     pointsType[0].unlock();
     pointsType[3].lock();
     pointsType[3].x = pose.leftWrist.x;
-    pointsType[3].y = pose.leftWrist.y+height/16;
+    pointsType[3].y = pose.leftWrist.y + height / 16;
     pointsType[3].unlock();
     pointsType2[0].lock();
-    pointsType2[0].x = pose.rightAnkle.x-width/3;
-    pointsType2[0].y = pose.rightAnkle.y-height/6;
+    pointsType2[0].x = pose.rightAnkle.x - width / 3;
+    pointsType2[0].y = pose.rightAnkle.y - height / 6;
     pointsType2[0].unlock();
     pointsType2[3].lock();
-    pointsType2[3].x = pose.leftAnkle.x+width/3;
-    pointsType2[3].y = pose.leftAnkle.y-height/6;
+    pointsType2[3].x = pose.leftAnkle.x + width / 3;
+    pointsType2[3].y = pose.leftAnkle.y - height / 6;
     pointsType2[3].unlock();
   }
 }

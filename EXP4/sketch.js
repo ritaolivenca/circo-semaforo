@@ -18,8 +18,11 @@ let poseNet;
 let pose;
 let skeleton;
 
+let vw;
+let vh;
+
 function keyPressed() {
-  if (key == ' ') {
+  if (key == " ") {
     showSprings = !showSprings;
   }
 }
@@ -36,7 +39,6 @@ function setup() {
   particles.push(new Particle(1000, 200));
   particles.push(new Particle(1000, 600));
   particles.push(new Particle(200, 600));
-
 
   eyes.push(new Particle(200, 400));
   eyes.push(new Particle(400, 400));
@@ -66,35 +68,31 @@ function setup() {
   springs.push(new Spring(particles[0], particles[2], 0.01));
   springs.push(new Spring(particles[1], particles[3], 0.01));
 
-
   video = createCapture(VIDEO);
+  vw = width;
+  vh = width * (1080 / 1920);
+  video.size(vw, vh);
   video.hide();
   poseNet = ml5.poseNet(video, modelLoaded);
-  poseNet.on('pose', gotPoses);
-
- 
+  poseNet.on("pose", gotPoses);
 }
 
 function gotPoses(poses) {
-  //console.log(poses); 
+  //console.log(poses);
   if (poses.length > 0) {
     pose = poses[0].pose;
   }
 }
 
-
 function modelLoaded() {
-  console.log('poseNet ready');
+  console.log("poseNet ready");
 }
 
-
-
 function draw() {
-  //background(255);
-  image(video, 0, 0, width, (1080*width)/1920);
+  background(255);
+  image(video, 0, 0, vw, vh);
 
   // We can call both functions to draw all keypoints and the skeletons
-
 
   physics.update();
 
@@ -111,32 +109,27 @@ function draw() {
   endShape(CLOSE);
 
   beginShape();
-  stroke(250,random(100,200),0);
+  stroke(250, random(100, 200), 0);
   strokeWeight(6);
   vertex(eyes[0].x, eyes[0].y);
   quadraticVertex(eyes[1].x, eyes[1].y, eyes[2].x, eyes[2].y);
   quadraticVertex(eyes[3].x, eyes[3].y, eyes[4].x, eyes[4].y);
   endShape();
 
-  
   if (showSprings) {
     for (let spring of springs) {
       spring.show();
     }
   }
-  
+
   if (pose) {
-      eyes[0].lock();
-      eyes[0].x = pose.rightWrist.x;
-      eyes[0].y = pose.rightWrist.y;
-      eyes[0].unlock();
-      eyes[4].lock();
-      eyes[4].x = pose.leftWrist.x;
-      eyes[4].y = pose.leftWrist.y;
-      eyes[4].unlock();
+    eyes[0].lock();
+    eyes[0].x = pose.rightWrist.x;
+    eyes[0].y = pose.rightWrist.y;
+    eyes[0].unlock();
+    eyes[4].lock();
+    eyes[4].x = pose.leftWrist.x;
+    eyes[4].y = pose.leftWrist.y;
+    eyes[4].unlock();
   }
 }
-
-
-
-

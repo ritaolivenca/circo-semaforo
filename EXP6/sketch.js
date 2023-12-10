@@ -21,6 +21,9 @@ let skeleton;
 let mensagem = " ANDRÉ";
 let font;
 
+let vw;
+let vh;
+
 function preload() {
   font = loadFont("GoshaSans-Bold.otf");
 }
@@ -72,6 +75,9 @@ function setup() {
   springs.push(new Spring(particles[1], particles[3], 0.01));
 
   video = createCapture(VIDEO);
+  vw = width;
+  vh = width * (1080 / 1920);
+  video.size(vw, vh);
   video.hide();
   poseNet = ml5.poseNet(video, modelLoaded);
   poseNet.on("pose", gotPoses);
@@ -93,6 +99,7 @@ function modelLoaded() {
 
 function draw() {
   background(255);
+  image(video, 0, 0, vw, vh);
 
   //image(video, 0, 0, width, (1080*width)/1920);
   if (pose) {
@@ -139,7 +146,7 @@ function draw() {
         line(pointX, pointY, prevPointX, prevPointY);
         let LE = createVector(pointX, pointY);
         let LR = createVector(prevPointX, prevPointY);
-        let normal = createVector(width/2, 0);
+        let normal = createVector(width / 2, 0);
 
         let dir = LE.sub(LR);
         dir.normalize();
@@ -147,7 +154,7 @@ function draw() {
         let angle = angleBetween(normal, dir);
         fill(0);
         noStroke();
-        
+
         push();
         translate(pointX, pointY);
         rotate(angle);
