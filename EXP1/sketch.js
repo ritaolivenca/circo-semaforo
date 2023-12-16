@@ -39,10 +39,14 @@ function modelReady() {
 function draw() {
   background(0);
   image(video, 0, 0, vw, vh); //garantir que está sempre proporcional
-
+  //blendMode(LIGHTEST);
+  if (!keyIsPressed) {
+    fill(0, 0, 0, 220);
+    rect(0, 0, width, height);
+  }
   // We can call both functions to draw all keypoints and the skeletons
-  drawKeypoints();
   drawSkeleton();
+  drawKeypoints();
 }
 
 // A function to draw ellipses over the detected keypoints
@@ -56,9 +60,9 @@ function drawKeypoints() {
       const keypoint = pose.keypoints[j];
       // Only draw an ellipse is the pose probability is bigger than 0.2
       if (keypoint.score > 0.2) {
-        fill(255, 0, 0);
+        fill(153, 27, 30);
         noStroke();
-        ellipse(keypoint.position.x, keypoint.position.y, 10, 10);
+        ellipse(keypoint.position.x, keypoint.position.y, 20, 20);
       }
     }
   }
@@ -73,8 +77,8 @@ function drawSkeleton() {
     for (let j = 0; j < skeleton.length; j += 1) {
       const partA = skeleton[j][0];
       const partB = skeleton[j][1];
-      stroke(random(200), random(200), 0);
-      strokeWeight(random(5));
+      stroke(153, 27, 30);
+      strokeWeight(8);
       line(
         partA.position.x,
         partA.position.y,

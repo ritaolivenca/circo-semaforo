@@ -17,15 +17,15 @@ let poseNet;
 let pose;
 let skeleton;
 
-let mensagem = " CATARINA ";
-let mensagem2 = " entrecampos "; //writeTextone//writeTextone
+let mensagem = " PEDRO  ";
+let mensagem2 = "rossio"; //writeTextone//writeTextone
 let font;
 
 let vw;
 let vh;
 
 function preload() {
-  font = loadFont("GoshaSans-Bold.otf");
+  font = loadFont("Acumin-BdPro.otf");
 }
 
 function keyPressed() {
@@ -132,7 +132,7 @@ function draw() {
     endShape(CLOSE);
 
     beginShape();
-    stroke(250, random(100, 200), 0);
+    noStroke();
     strokeWeight(1);
 
     let x1 = pointsType[0].x,
@@ -165,7 +165,7 @@ function draw() {
       let pointY = bezierPoint(y1, y2, y3, y4, steps);
       if (steps > 0) {
         let currentChar = mensagem.charAt(i - 1);
-        stroke(0);
+        noStroke();
         line(pointX, pointY, prevPointX, prevPointY);
         let LE = createVector(pointX, pointY);
         let LR = createVector(prevPointX, prevPointY);
@@ -204,7 +204,7 @@ function draw() {
       let pointY2 = bezierPoint(y5, y6, y7, y8, steps);
       if (steps > 0) {
         let currentChar2 = mensagem2.charAt(i - 1);
-        stroke(0);
+        noStroke();
         line(pointX2, pointY2, prevPointX2, prevPointY2);
         let LE2 = createVector(pointX2, pointY2);
         let LR2 = createVector(prevPointX2, prevPointY2);

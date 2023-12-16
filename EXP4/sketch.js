@@ -90,6 +90,7 @@ function modelLoaded() {
 
 function draw() {
   background(255);
+
   image(video, 0, 0, vw, vh);
 
   // We can call both functions to draw all keypoints and the skeletons
@@ -100,7 +101,7 @@ function draw() {
   if (showSprings) stroke(112, 50, 126, 100);
 
   noFill();
-  if (showSprings) fill(45, 197, 244, 100);
+  if (showSprings) fill(108, 196, 133, 100);
   strokeWeight(2);
   beginShape();
   for (let particle of particles) {
@@ -109,7 +110,7 @@ function draw() {
   endShape(CLOSE);
 
   beginShape();
-  stroke(250, random(100, 200), 0);
+  stroke(153, 27, 30);
   strokeWeight(6);
   vertex(eyes[0].x, eyes[0].y);
   quadraticVertex(eyes[1].x, eyes[1].y, eyes[2].x, eyes[2].y);

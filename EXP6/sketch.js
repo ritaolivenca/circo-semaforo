@@ -18,14 +18,14 @@ let poseNet;
 let pose;
 let skeleton;
 
-let mensagem = " ANDRÉ";
+let mensagem = " Acrobacia!";
 let font;
 
 let vw;
 let vh;
 
 function preload() {
-  font = loadFont("GoshaSans-Bold.otf");
+  font = loadFont("Acumin-BdPro.otf");
 }
 
 function keyPressed() {
@@ -101,6 +101,9 @@ function draw() {
   background(255);
   image(video, 0, 0, vw, vh);
 
+  fill(255);
+  rect(0, 0, vw, vh);
+
   //image(video, 0, 0, width, (1080*width)/1920);
   if (pose) {
     // We can call both functions to draw all keypoints and the skeletons
@@ -142,7 +145,7 @@ function draw() {
       let pointY = bezierPoint(y1, y2, y3, y4, steps);
       if (steps > 0) {
         let currentChar = mensagem.charAt(i - 1);
-        stroke(0);
+        noStroke();
         line(pointX, pointY, prevPointX, prevPointY);
         let LE = createVector(pointX, pointY);
         let LR = createVector(prevPointX, prevPointY);

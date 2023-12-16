@@ -15,14 +15,14 @@ let poseNet;
 let pose;
 let skeleton;
 
-let mensagem = " ANDRÉ";
+let mensagem = " Pedro";
 let font;
 
 let vw;
 let vh;
 
 function preload() {
-  font = loadFont("GoshaSans-Bold.otf");
+  font = loadFont("Acumin-BdPro.otf");
 }
 
 function keyPressed() {
@@ -92,7 +92,7 @@ function modelLoaded() {
 
 function draw() {
   background(255);
-  image(video, 0, 0, vw, vh);
+  //image(video, 0, 0, vw, vh);
 
   if (pose) {
     physics.update();

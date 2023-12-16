@@ -91,16 +91,21 @@ function modelLoaded() {
 function draw() {
   //background(255);
   image(video, 0, 0, vw, vh);
+  if (!keyIsPressed) {
+    noStroke();
+    fill(0, 0, 0, 180);
+    rect(0, 0, width, height);
+  }
   if (pose) {
     // We can call both functions to draw all keypoints and the skeletons
 
     physics.update();
 
     noStroke();
-    if (showSprings) stroke(112, 50, 126, 100);
+    if (showSprings) stroke(51, 153, 103, 100);
 
     noFill();
-    if (showSprings) fill(45, 197, 244, 100);
+    if (showSprings) fill(51, 153, 103, 100);
     strokeWeight(2);
     beginShape();
     for (let particle of particles) {
@@ -109,7 +114,7 @@ function draw() {
     endShape(CLOSE);
 
     beginShape();
-    stroke(250, random(100, 200), 0);
+    stroke(51, 153, 103);
     strokeWeight(6);
     let x1 = eyes[0].x,
       x2 = eyes[1].x,
@@ -126,7 +131,7 @@ function draw() {
       let steps = i / 20;
       let pointX = bezierPoint(x1, x2, x3, x4, steps);
       let pointY = bezierPoint(y1, y2, y3, y4, steps);
-      fill(250, 0, 250);
+      fill(51, 153, 103);
       noStroke();
       circle(pointX, pointY, 20);
     }

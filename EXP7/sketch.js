@@ -17,15 +17,15 @@ let poseNet;
 let pose;
 let skeleton;
 
-let mensagem = " CATARINA ";
-let mensagem2 = " entrecampos "; //writeTextone//writeTextone
+let mensagem = " PEDRO";
+let mensagem2 = " Rossio"; //writeTextone//writeTextone
 let font;
 
 let vw;
 let vh;
 
 function preload() {
-  font = loadFont("GoshaSans-Bold.otf");
+  font = loadFont("Acumin-BdPro.otf");
 }
 
 function keyPressed() {
