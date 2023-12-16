@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/698445484.svg)](https://zenodo.org/doi/10.5281/zenodo.10395720)
+
 #### Circo Semaforo
 
 # Circus Visual Communication: the digital caption of movement as a tool for graphic design
