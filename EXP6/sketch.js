@@ -101,8 +101,8 @@ function draw() {
   background(255);
   image(video, 0, 0, vw, vh);
 
-  fill(255);
-  rect(0, 0, vw, vh);
+  //fill(255);
+  //rect(0, 0, vw, vh);
 
   //image(video, 0, 0, width, (1080*width)/1920);
   if (pose) {

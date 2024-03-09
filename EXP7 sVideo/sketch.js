@@ -1,5 +1,6 @@
 // Coding Train / Daniel Shiffman
 // adapted w/ml5 poseNET example to interactive text representation
+// by André Rocha and Rita Olivença
 
 const { VerletPhysics2D, VerletParticle2D, VerletSpring2D } = toxi.physics2d;
 const { GravityBehavior } = toxi.physics2d.behaviors;
