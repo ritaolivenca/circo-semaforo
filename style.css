@@ -1,0 +1,138 @@
+:root {
+    --main-white-color: white;
+    --main-black-color: black;
+  }
+  
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    color: white;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5rem;
+
+  }
+
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  h2, .h2 { font-size: 8rem;
+            line-height:7rem; }
+  
+  .static {
+    position: static;
+  }
+  
+  .cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .owl-carousel .owl-slide {
+    position: relative;
+    height: 100vh;
+    background-color: lightgray;
+  }
+  
+  .owl-carousel .owl-slide-animated {
+    transform: translateX(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.05s;
+  }
+  
+  .owl-carousel .owl-slide-animated.is-transitioned {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s;
+  }
+  
+  .owl-carousel .owl-slide-title.is-transitioned {
+    transition-delay: 0.2s;
+  }
+  
+  .owl-carousel .owl-slide-subtitle.is-transitioned {
+    transition-delay: 0.35s;
+  }
+  
+  .owl-carousel .owl-slide-cta.is-transitioned {
+    transition-delay: 0.5s;
+  }
+  
+  .owl-carousel .owl-dots,
+  .owl-carousel .owl-nav {
+    position: absolute;
+  }
+  
+  .owl-carousel .owl-dots .owl-dot,
+  .owl-carousel .owl-nav [class*="owl-"]:focus {
+    outline: none;
+  }
+  
+  .owl-carousel .owl-dots .owl-dot span {
+    background: transparent;
+    border: 1px solid var(--main-white-color);
+    transition: all 0.2s ease;
+  }
+  
+  .owl-carousel .owl-dots .owl-dot:hover span,
+  .owl-carousel .owl-dots .owl-dot.active span {
+    background: var(--main-white-color);
+  }
+  
+  .owl-carousel .owl-nav {
+    
+    right: 10%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    margin: 0;
+  }
+  
+  .owl-carousel .owl-nav svg {
+    fill: #ffffff;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+  }
+  
+  .owl-carousel .owl-nav button:hover svg {
+    opacity: 1;
+  }
+  
+  .owl-carousel .owl-nav [class*="owl-"]:hover {
+    background: transparent;
+  }
+  
+  section {
+    display: none;
+  }
+  
+  @media screen and (max-width: 575px) {
+    .owl-carousel .owl-nav {
+      display: none;
+      top: 5%;
+    }
+    
+    .owl-carousel .owl-nav svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+
+  
+
+
+
+  
