@@ -24,14 +24,14 @@ let font;
 let vw;
 let vh;
 
+// speech recognition features
+
+let speechRecognition;
+let isListening = false;
+let textToShow = "";
+
 function preload() {
   font = loadFont("Acumin-BdPro.otf");
-}
-
-function keyPressed() {
-  if (key == " ") {
-    showSprings = !showSprings;
-  }
 }
 
 function setup() {
@@ -84,6 +84,19 @@ function setup() {
 
   textFont(font);
   textAlign(CENTER);
+
+  // Initialize speech recognition
+  speechRecognition = new webkitSpeechRecognition() || new SpeechRecognition();
+  speechRecognition.continuous = true;
+  speechRecognition.interimResults = true;
+  speechRecognition.lang = "pt-PT";
+
+  // Handle the result event
+  speechRecognition.onresult = function (event) {
+    if (event.results.length > 0) {
+      textToShow = event.results[0][0].transcript;
+    }
+  };
 }
 
 function gotPoses(poses) {
@@ -98,11 +111,12 @@ function modelLoaded() {
 }
 
 function draw() {
+  mensagem = textToShow;
   background(255);
   push();
   translate(vw, 0);
   scale(-1, 1);
-  image(video, 0, 0, vw, vh);
+  //image(video, 0, 0, vw, vh);
   pop();
   //translate(-vw, 0);
 
@@ -197,6 +211,32 @@ function draw() {
     pointsType[3].unlock();
   }
 }
+
+function keyPressed() {
+  if (keyCode === 32) {
+    // Spacebar
+    if (!isListening) {
+      speechRecognition.start();
+      isListening = true;
+    }
+  }
+}
+
+function keyReleased() {
+  if (keyCode === 32) {
+    // Spacebar
+    if (isListening) {
+      speechRecognition.stop();
+      isListening = false;
+    }
+  }
+}
+
+/* function keyPressed() {
+  if (key == " ") {
+    showSprings = !showSprings;
+  }
+} */
 
 function dot2(v, w) {
   let dot = v.x * w.x + v.y * w.y;
