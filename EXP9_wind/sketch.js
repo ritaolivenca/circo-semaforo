@@ -18,20 +18,44 @@ let poseNet;
 let pose;
 let skeleton;
 
-let mensagem = "Acrobacia!";
+let mensagem = " Acrobacia!";
 let font;
 
 let vw;
 let vh;
 
 // speech recognition features
-
 let speechRecognition;
 let isListening = false;
 let textToShow = "";
 
 function preload() {
   font = loadFont("Acumin-BdPro.otf");
+}
+
+function keyPressed() {
+  if (key == " ") {
+    showSprings = !showSprings;
+  }
+  if (keyCode === 32) {
+    // Spacebar
+    if (!isListening && speechRecognition) {
+      console.log("Starting speech recognition");
+      speechRecognition.start();
+      isListening = true;
+    }
+  }
+}
+
+function keyReleased() {
+  if (keyCode === 32) {
+    // Spacebar
+    if (isListening && speechRecognition) {
+      console.log("Stopping speech recognition");
+      speechRecognition.stop();
+      isListening = false;
+    }
+  }
 }
 
 function setup() {
@@ -51,14 +75,12 @@ function setup() {
     pointsType.push(new Particle((j * width) / 4, height / 2));
   }
   console.log(mensagem.length);
-  //pointsType.push(new Particle(1000, 400));
 
   for (let i = 0; i < particles.length; i++) {
     for (let j = i + 1; j < particles.length; j++) {
       if (i !== j) {
         let a = particles[i];
         let b = particles[j];
-        // let b = particles[(i + 1) % particles.length];
         springs.push(new Spring(a, b, 0.001));
       }
     }
@@ -79,28 +101,63 @@ function setup() {
   vh = width * (1080 / 1920);
   video.size(vw, vh);
   video.hide();
-  poseNet = ml5.poseNet(video, { flipHorizontal: true }, modelLoaded);
-  poseNet.on("pose", gotPoses);
+
+  // Check if ml5 is available
+  if (typeof ml5 !== "undefined") {
+    if (ml5.poseNet) {
+      console.log("Using ml5.poseNet directly");
+      poseNet = ml5.poseNet(video, modelLoaded);
+    } else if (ml5.PoseNet) {
+      console.log("Using ml5.PoseNet constructor");
+      poseNet = new ml5.PoseNet(video, modelLoaded);
+    } else {
+      console.error("ml5.poseNet is not available");
+    }
+
+    if (poseNet) {
+      poseNet.on("pose", gotPoses);
+    }
+  } else {
+    console.error("ml5 is not available");
+  }
 
   textFont(font);
   textAlign(CENTER);
 
   // Initialize speech recognition
-  speechRecognition = new webkitSpeechRecognition() || new SpeechRecognition();
-  speechRecognition.continuous = true;
-  speechRecognition.interimResults = true;
-  speechRecognition.lang = "pt-PT";
+  initializeSpeechRecognition();
+}
 
-  // Handle the result event
-  speechRecognition.onresult = function (event) {
-    if (event.results.length > 0) {
-      textToShow = event.results[0][0].transcript;
-    }
-  };
+function initializeSpeechRecognition() {
+  if ("webkitSpeechRecognition" in window) {
+    speechRecognition = new webkitSpeechRecognition();
+    speechRecognition.continuous = true;
+    speechRecognition.interimResults = true;
+    speechRecognition.lang = "pt-PT";
+
+    speechRecognition.onresult = function (event) {
+      console.log("Speech recognition result received");
+      if (event.results.length > 0) {
+        textToShow = event.results[event.results.length - 1][0].transcript;
+        console.log("Recognized text:", textToShow);
+        mensagem = " " + textToShow; // Update mensagem with recognized text
+      }
+    };
+
+    speechRecognition.onerror = function (event) {
+      console.log("Speech recognition error:", event.error);
+    };
+
+    speechRecognition.onend = function () {
+      console.log("Speech recognition ended");
+      isListening = false;
+    };
+  } else {
+    console.error("Speech recognition not supported in this browser");
+  }
 }
 
 function gotPoses(poses) {
-  //console.log(poses);
   if (poses.length > 0) {
     pose = poses[0].pose;
   }
@@ -111,22 +168,10 @@ function modelLoaded() {
 }
 
 function draw() {
-  mensagem = textToShow;
   background(255);
-  push();
-  translate(vw, 0);
-  scale(-1, 1);
-  //image(video, 0, 0, vw, vh);
-  pop();
-  //translate(-vw, 0);
+  image(video, 0, 0, vw, vh);
 
-  //fill(255);
-  //rect(0, 0, vw, vh);
-
-  //image(video, 0, 0, width, (1080*width)/1920);
   if (pose) {
-    // We can call both functions to draw all keypoints and the skeletons
-
     physics.update();
 
     noStroke();
@@ -134,7 +179,6 @@ function draw() {
 
     noFill();
     if (showSprings) noFill();
-    //fill(45, 197, 244, 100);
     strokeWeight(3);
     beginShape();
     for (let particle of particles) {
@@ -150,13 +194,10 @@ function draw() {
       x2 = pointsType[1].x,
       x3 = pointsType[2].x,
       x4 = pointsType[3].x;
-    //x5 = pointsType[4].x;
     let y1 = pointsType[0].y,
       y2 = pointsType[1].y,
       y3 = pointsType[2].y,
       y4 = pointsType[3].y;
-    //y5 = pointsType[4].y;
-    //bezier(x1, y1, x2, y2, x3, y3, x4, y4);
     textSize(100);
     for (let i = 0; i <= mensagem.length; i++) {
       let steps = i / mensagem.length;
@@ -188,9 +229,6 @@ function draw() {
       noStroke();
       prevPointX = pointX;
       prevPointY = pointY;
-
-      // pop();
-      //circle(pointX, pointY, 20);
     }
 
     endShape();
@@ -202,41 +240,21 @@ function draw() {
     }
 
     pointsType[0].lock();
-    pointsType[0].x = pose.leftWrist.x;
-    pointsType[0].y = pose.leftWrist.y;
+    pointsType[0].x = pose.rightWrist.x;
+    pointsType[0].y = pose.rightWrist.y;
     pointsType[0].unlock();
     pointsType[3].lock();
-    pointsType[3].x = pose.rightWrist.x;
-    pointsType[3].y = pose.rightWrist.y;
+    pointsType[3].x = pose.leftWrist.x;
+    pointsType[3].y = pose.leftWrist.y;
     pointsType[3].unlock();
   }
-}
 
-function keyPressed() {
-  if (keyCode === 32) {
-    // Spacebar
-    if (!isListening) {
-      speechRecognition.start();
-      isListening = true;
-    }
-  }
+  // Display speech recognition status
+  fill(0);
+  textSize(16);
+  textAlign(LEFT, TOP);
+  text(`Speech Recognition: ${isListening ? "Active" : "Inactive"}`, 10, 10);
 }
-
-function keyReleased() {
-  if (keyCode === 32) {
-    // Spacebar
-    if (isListening) {
-      speechRecognition.stop();
-      isListening = false;
-    }
-  }
-}
-
-/* function keyPressed() {
-  if (key == " ") {
-    showSprings = !showSprings;
-  }
-} */
 
 function dot2(v, w) {
   let dot = v.x * w.x + v.y * w.y;
