@@ -7,106 +7,138 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="owl-carousel owl-theme">
-        <div class="owl-slide d-flex align-items-center cover" style="background-image:url(images/intro.jpg)">
-            <div class="container">
-                <div class="row justify-content-center justify-content-md-start">
-                    <div class="col-12 col-md-8">
-                        <div class="owl-slide-text">
-                            <h2 class="owl-slide-animated owl-slide-title">Traffic Lights Circus</h2>
-                            <div class="owl-slide-animated owl-slide-subtitle mb-3">
-                                "Circo Semáforo - Traffic Lights Circus is a project conceived by Rita Olivença and co-developed with André Rocha, serving as the experimental foundation for Olivença's master's thesis. This project begins with a basic p5.js example from Daniel Shiffman's Coding Train...
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <video class="video-bg" autoplay loop muted playsinline>
+                    <source src="videos/video1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="overlay"></div>
+                <div class="content">
+                    <div class="container h-100">
+                        <div class="row h-100 align-items-center justify-content-center justify-content-md-start">
+                            <div class="col-12 col-md-8">
+                                <div class="carousel-text">
+                                    <h2 class="carousel-title">Traffic Lights Circus</h2>
+                                    <div class="carousel-subtitle mb-3">
+                                        "Circo Semáforo - Traffic Lights Circus is a project conceived by Rita Olivença and co-developed with André Rocha, serving as the experimental foundation for Olivença's master's thesis. This project begins with a basic p5.js example from Daniel Shiffman's Coding Train...
+                                    </div>
+                                    <div class="carousel-cta">
+                                        <a class="btn btn-light" href="SkeletonClean/" target="_blank" role="button">Learning</a>
+                                        <a class="btn btn-light" href="EXP1/" target="_blank" role="button">EXP1</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="owl-slide-animated owl-slide-cta">
-                                <a class="btn btn-light" href="SkeletonClean/" target="_blank" role="button">Learning</a>
-                                <a class="btn btn-light" href="EXP1/" target="_blank" role="button">EXP1</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <video class="video-bg" autoplay loop muted playsinline>
+                    <source src="videos/video2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="overlay"></div>
+                <div class="content">
+                    <div class="container h-100">
+                        <div class="row h-100 align-items-center justify-content-between">
+                            <div class="col-12 col-md-5">
+                                <div class="carousel-text">
+                                    <div class="carousel-subtitle mb-3">
+                                        ... subsequently evolving through experiments with various physics libraries. The aim was to transform the pose recognition mechanism into an engaging experience for circus performers. 
+                                    </div>
+                                    <div class="carousel-cta">
+                                        <a class="btn btn-light" href="EXP4/" target="_blank" role="button">EXP4</a>
+                                        <a class="btn btn-light" href="EXP5/" target="_blank" role="button">EXP5</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <div class="carousel-text">
+                                    <h2 class="carousel-title">...looking for the right prop!</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <video class="video-bg" autoplay loop muted playsinline>
+                    <source src="videos/video3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="overlay"></div>
+                <div class="content">
+                    <div class="container h-100">
+                        <div class="row h-100 align-items-center justify-content-between">
+                            <div class="col-12 col-md-5">
+                                <div class="carousel-text">
+                                    <h2 class="carousel-title">Juggling with Typography</h2>
+                                    <div class="carousel-subtitle mb-3">
+                                        This further progresses by incorporating typography into the mix, paving the way for what could eventually become a generator of circus posters for street performers. 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <div class="carousel-text">
+                                    <div class="carousel-subtitle mb-3">
+                                        'Circo Semáforo' thus represents a unique blend of permanence and ephemera, embodying a festival of performances that occur daily in the urban landscape. Interactive posters, drawing inspiration from traditional circus poster art, exist within modern digital media as a novel means of advertisement for this spectacle.
+                                    </div>
+                                    <div class="carousel-cta">
+                                        <a class="btn btn-light" href="EXP6/" target="_blank" role="button">EXP6</a>
+                                        <a class="btn btn-light" href="EXP6_V2/" target="_blank" role="button">EXP6.1</a>
+                                        <a class="btn btn-light" href="EXP7/" target="_blank" role="button">EXP7</a>
+                                        <a class="btn btn-light" href="EXP7_sVideo/" target="_blank" role="button">EXP7.1</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <video class="video-bg" autoplay loop muted playsinline>
+                    <source src="videos/video4.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="content">
+                    <div class="container h-100">
+                        <div class="row h-100 align-items-center justify-content-center">
+                            <div class="col-12">
+                                <div class="carousel-text credits-slide">
+                                    <h2 class="carousel-title">Credits</h2>
+                                    <div class="carousel-subtitle mb-3">
+                                        <p>Work by Rita Olivença and André Rocha</p>
+                                        <p>Acrobats: Catarina Tavas and Pedro Caetano</p>
+                                        <p>Special thanks to ESADcr IPLeiria - Caldas da Rainha</p>
+                                        <p>This work is licensed under CC-BY 4.0 Rita Olivença</p>
+                                        <p>GitHub Repository: <a href="https://github.com/ritaolivenca/circo-semaforo" target="_blank">https://github.com/ritaolivenca/circo-semaforo</a></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="owl-slide d-flex align-items-center cover" style="background-image: url(images/juggling.jpg);">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-12 col-md-5">
-                        <div class="owl-slide-text">
-                            <div class="owl-slide-animated owl-slide-subtitle mb-3">
-                                ... subsequently evolving through experiments with various physics libraries. The aim was to transform the pose recognition mechanism into an engaging experience for circus performers. 
-                            </div>
-                            <div class="owl-slide-animated owl-slide-cta">
-                                <a class="btn btn-light" href="EXP4/" target="_blank" role="button">EXP4</a>
-                                <a class="btn btn-light" href="EXP5/" target="_blank" role="button">EXP5</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-5">
-                        <div class="owl-slide-text">
-                            <h2 class="owl-slide-animated owl-slide-title">...looking for the right prop!</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="owl-slide d-flex align-items-center cover" style="background-image: url(images/type.jpg);">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-12 col-md-5">
-                        <div class="owl-slide-text">
-                            <h2 class="owl-slide-animated owl-slide-title">Juggling with Typography</h2>
-                            <div class="owl-slide-animated owl-slide-subtitle mb-3">
-                                This further progresses by incorporating typography into the mix, paving the way for what could eventually become a generator of circus posters for street performers. 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-5">
-                        <div class="owl-slide-text">
-                            <div class="owl-slide-animated owl-slide-subtitle mb-3">
-                                'Circo Semáforo' thus represents a unique blend of permanence and ephemera, embodying a festival of performances that occur daily in the urban landscape. Interactive posters, drawing inspiration from traditional circus poster art, exist within modern digital media as a novel means of advertisement for this spectacle.
-                            </div>
-                            <div class="owl-slide-animated owl-slide-cta">
-                                <a class="btn btn-light" href="EXP6/" target="_blank" role="button">EXP6</a>
-                                <a class="btn btn-light" href="EXP6_V2/" target="_blank" role="button">EXP6.1</a>
-                                <a class="btn btn-light" href="EXP7/" target="_blank" role="button">EXP7</a>
-                                <a class="btn btn-light" href="EXP7_sVideo/" target="_blank" role="button">EXP7.1</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- New Credits Slide -->
-        <div class="owl-slide d-flex align-items-center cover" style="background-image: url(images/intro.jpg)">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="owl-slide-text credits-slide">
-                            <h2 class="owl-slide-animated owl-slide-title">Credits</h2>
-                            <div class="owl-slide-animated owl-slide-subtitle mb-3">
-                                <p>Work by Rita Olivença and André Rocha</p>
-                                <p>Acrobats: Catarina Tavas and Pedro Caetano</p>
-                                <p>Special thanks to ESADcr IPLeiria - Caldas da Rainha</p>
-                                <p>This work is licensed under CC-BY 4.0 Rita Olivença</p>
-                                <p>GitHub Repository: <a href="https://github.com/ritaolivenca/circo-semaforo" target="_blank">https://github.com/ritaolivenca/circo-semaforo</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="carousel-controls-container">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true">&lt;</span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true">&gt;</span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="./owlLocal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

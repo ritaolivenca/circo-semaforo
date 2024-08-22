@@ -10,9 +10,10 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 18.4px; /* Increased by 15% from 16px */
-  scroll-behavior: smooth;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -20,6 +21,7 @@ body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -30,105 +32,53 @@ h1, h2, h3, h4, h5, h6,
 }
 
 h2, .h2 { 
-  font-size: 8.05rem; /* Increased by 15% from 7rem */
+  font-size: 8.05rem;
   line-height: 1.05;
 }
 
-p, .owl-carousel .owl-slide-subtitle {
-  font-size: 1.265rem; /* Increased by 15% from 1.1rem */
+p, .carousel-subtitle {
+  font-size: 1.265rem;
 }
 
-.cover {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.owl-carousel .owl-slide {
-  position: relative;
+.carousel, .carousel-inner, .carousel-item {
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
-.owl-carousel .owl-slide::before {
-  content: '';
+.video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  transform: translateX(-50%) translateY(-50%);
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Darkened overlay */
+  z-index: 1;
+}
+
+.content {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: inherit;
-  filter: blur(2px);
-  z-index: -1;
+  z-index: 2;
 }
 
-.owl-carousel .owl-slide-animated {
-  transform: translateY(20px);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.7s ease-in-out;
-}
-
-.owl-carousel .owl-slide-animated.is-transitioned {
-  transform: none;
-  opacity: 1;
-  visibility: visible;
-  transition: all 0.7s ease-in-out;
-}
-
-.owl-carousel .owl-slide-title.is-transitioned {
-  transition-delay: 0.2s;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.owl-carousel .owl-slide-subtitle.is-transitioned {
-  transition-delay: 0.35s;
-}
-
-.owl-carousel .owl-slide-cta.is-transitioned {
-  transition-delay: 0.5s;
-}
-
-.owl-carousel .owl-nav {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-  z-index: 11;
-}
-
-.owl-carousel .owl-nav button.owl-prev,
-.owl-carousel .owl-nav button.owl-next {
-  position: absolute;
-  background: transparent !important;
-  color: var(--main-white-color);
-  border: none;
-  font-size: 2rem;
-  transition: all 0.3s ease;
-  outline: none;
-  padding: 1rem !important;
-}
-
-.owl-carousel .owl-nav button.owl-prev {
-  left: 1rem;
-}
-
-.owl-carousel .owl-nav button.owl-next {
-  right: 1rem;
-}
-
-.owl-carousel .owl-nav button:hover {
-  opacity: 0.7;
-}
-
-.owl-carousel .owl-nav svg {
-  width: 50px;
-  height: 50px;
-  fill: var(--main-white-color);
+.carousel-text {
+  position: relative;
+  z-index: 3;
 }
 
 .btn {
@@ -141,17 +91,6 @@ p, .owl-carousel .owl-slide-subtitle {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.owl-slide-text {
-  position: relative;
-  z-index: 10;
-}
-
-/* Hide dots */
-.owl-carousel .owl-dots {
-  display: none;
-}
-
-/* Styles for the credits slide */
 .credits-slide {
   text-align: center;
 }
@@ -173,48 +112,60 @@ p, .owl-carousel .owl-slide-subtitle {
   color: var(--main-accent-color);
 }
 
+.carousel-controls-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position: static;
+  width: auto;
+  padding: 10px;
+  color: var(--main-white-color);
+  text-decoration: none;
+  font-size: 2rem;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  display: inline;
+  background-image: none;
+  width: auto;
+  height: auto;
+}
+
 @media screen and (max-width: 768px) {
   html {
-      font-size: 16.1px; /* Increased by 15% from 14px */
+      font-size: 16.1px;
   }
 
   h2, .h2 {
-      font-size: 5.75rem; /* Increased by 15% from 5rem */
+      font-size: 5.75rem;
   }
 
-  p, .owl-carousel .owl-slide-subtitle {
-      font-size: 1.39rem; /* Increased by 15% from 1.21rem */
+  p, .carousel-subtitle {
+      font-size: 1.39rem;
   }
 
-  .owl-carousel .owl-slide {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem 0;
-  }
-
-  .owl-slide-text {
+  .carousel-text {
       text-align: center;
       max-width: 90%;
       width: 100%;
       padding: 0 1rem;
-  }
-
-  .owl-carousel .container,
-  .owl-carousel .row,
-  .owl-carousel [class*="col-"] {
-      width: 100%;
-      max-width: 100%;
-      flex: 0 0 100%;
-      margin: 0;
-      padding: 0;
-  }
-
-  /* Hide navigation arrows on mobile */
-  .owl-carousel .owl-nav {
-      display: none;
   }
 
   .credits-slide h2 {
@@ -225,7 +176,7 @@ p, .owl-carousel .owl-slide-subtitle {
       font-size: 1.1rem;
   }
 
-  .owl-slide-cta {
+  .carousel-cta {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -234,15 +185,15 @@ p, .owl-carousel .owl-slide-subtitle {
 
 @media screen and (max-width: 576px) {
   html {
-      font-size: 13.8px; /* Increased by 15% from 12px */
+      font-size: 13.8px;
   }
 
   h2, .h2 {
-      font-size: 5.175rem; /* Increased by 15% from 4.5rem */
+      font-size: 5.175rem;
   }
 
-  p, .owl-carousel .owl-slide-subtitle {
-      font-size: 1.518rem; /* Increased by 15% from 1.32rem */
+  p, .carousel-subtitle {
+      font-size: 1.518rem;
   }
 
   .credits-slide h2 {
@@ -252,18 +203,4 @@ p, .owl-carousel .owl-slide-subtitle {
   .credits-slide p {
       font-size: 1rem;
   }
-}
-
-.static {
-  position: static;
-}
-
-section {
-  display: none;
-}
-
-.owl-carousel .owl-item img {
-  display: block;
-  width: 100%;
-  height: auto;
 }
